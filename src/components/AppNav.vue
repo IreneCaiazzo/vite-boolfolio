@@ -1,5 +1,15 @@
 <script>
-export default {};
+export default {
+    data() {
+        return {
+            searchString: '',
+        };
+    },
+    // TODO: pulire il campo di ricerca quando cambiamo pagina
+    // created() {
+    //     this.searchString = new URLSearchParams(window.location.search).get('q');
+    // },
+};
 </script>
 
 <template>
@@ -18,13 +28,17 @@ export default {};
                         <router-link :to="{ name: 'projects.index' }" class="nav-link active">Projects</router-link>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">About</a>
+                        <router-link class="nav-link active" :to="{ name: 'about' }">About</router-link>
+
                     </li>
                 </ul>
-                <!-- <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+                <form class="d-flex" role="search"
+                    @submit.prevent="$router.push({ name: 'projects.index', query: { q: searchString } })">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q"
+                        v-model="searchString">
                     <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> -->
+                </form>
             </div>
         </div>
     </nav>
